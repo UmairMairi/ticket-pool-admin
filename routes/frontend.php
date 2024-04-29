@@ -35,6 +35,8 @@ Route::group(['middleware' => ['mode', 'XSS']], function () {
         Route::post('/otp-verify', [FrontendController::class, 'otpVerify']);
         Route::get('login', [FrontendController::class, 'login'])->name('user.login');
         Route::post('/login', [FrontendController::class, 'userLogin']);
+        Route::get('/login-express', [FrontendController::class, 'loginExpress'])->name('login.express');
+        Route::post('/login-express', [FrontendController::class, 'userLoginExpress'])->name('user.login.express');
         Route::get('/customLogin', [FrontendController::class, 'userLogin'])->name("user.customLogin");
         Route::get('/resetPassword', [FrontendController::class, 'resetPassword']);
         Route::post('/resetPassword', [FrontendController::class, 'userResetPassword']);
@@ -65,11 +67,11 @@ Route::group(['middleware' => ['mode', 'XSS']], function () {
         // Route::get('/all-blogs', [FrontendController::class, 'blogs']);
         // Route::get('/blog-detail/{id}/{name}', [FrontendController::class, 'blogDetail']);
         Route::get('/contact', [FrontendController::class, 'contact']);
+        Route::get('/checkout/{id}', [FrontendController::class, 'checkout']);
 
         Route::group(['middleware' => 'appuser'], function () {
 
             Route::get('email/verify/{id}/{token}', [FrontendController::class, 'emailVerify']);
-            Route::get('/checkout/{id}', [FrontendController::class, 'checkout']);
             Route::post('/checkout', [FrontendController::class, 'checkoutseatsio'])->name('checkout');
             Route::post('/applyCoupon', [FrontendController::class, 'applyCoupon']);
             Route::any('/createOrder', [FrontendController::class, 'createOrder'])->name('createOrderUser');

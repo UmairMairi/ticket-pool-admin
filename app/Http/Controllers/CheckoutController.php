@@ -26,7 +26,9 @@ class CheckoutController extends Controller
 
     public function detail_view(Request $request)
     {
+
         if (Auth::guard('appuser')->check()) {
+            $data = $request->session()->get('data');
             return view('frontend.checkout.paymentDetail', compact('data'));
         }
         // Validate the form data
@@ -39,17 +41,17 @@ class CheckoutController extends Controller
         }
 
         $email = $request->input('email');
-
         $user = AppUser::where('email', $email)->first();
 
         if ($user) {
-            // Email already exists, redirect to signin page
-            return redirect()->route('login');
+            return redirect()->route('login.express');
         } else {
+            $singleEvent = 1;
+
             $data = $request->session()->get('data');
             $request->session()->put('email', $email);
             // Email is new, move to detail page
-            return view('frontend.checkout.detail', compact('data'));
+            return view('frontend.checkout.detail', compact('data','singleEvent'));
         }
     }
 
@@ -60,8 +62,8 @@ class CheckoutController extends Controller
             return view('frontend.checkout.paymentDetail', compact('data'));
         }
         $phone = Country::get();
-
-        return view('frontend.checkout.additionalDetail', compact('phone', 'data'));
+        $singleEvent = 1;
+        return view('frontend.checkout.additionalDetail', compact('phone', 'data','singleEvent'));
     }
 
 
@@ -127,6 +129,7 @@ class CheckoutController extends Controller
 
         // register process
         $userDetails = $request->session()->get('user_details', []);
+//        dd($userDetails);
         return redirect()->route('user.customRegister', [
             'name'            => $userDetails['firstname'],
             'last_name'       => $userDetails['lastname'],

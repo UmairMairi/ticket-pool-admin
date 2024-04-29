@@ -808,7 +808,7 @@ class ApiController extends Controller
         $setting = Setting::find(1);
 
         // for user notification
-        $message = NotificationTemplate::where('title', 'Book Ticket')->first()->message_content;
+        $message = NotificationTemplate::where('title', 'Order Notification')->first()->message_content;
         $detail['user_name'] = $user->name;
         $detail['quantity'] = $request->quantity;
         $detail['event_name'] = Event::find($request->event_id)->name;
@@ -827,7 +827,7 @@ class ApiController extends Controller
             (new AppHelper)->sendOneSignal('user', $user->device_token, $message1);
         }
         // for user mail
-        $ticket_book = NotificationTemplate::where('title', 'Book Ticket')->first();
+        $ticket_book = NotificationTemplate::where('title', 'Order Notification')->first();
         $details['user_name'] = $user->name . ' ' . $user->last_name;
         $details['quantity'] = $request->quantity;
         $details['event_name'] = Event::find($request->event_id)->name;

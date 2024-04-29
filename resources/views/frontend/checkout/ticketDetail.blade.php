@@ -1,5 +1,6 @@
 <div class="flex flex-row justify-between">
     <div class="flex flex-col" style="width:70%">
+
         <h4 class="relative font-bold"><span id="eventTitle"> {{ $data->event->name }}</span> &#x1F31E;</h4>
         <p id="order_date">{{ date('D, jS M \a\t g:ia', strtotime($data->event->start_time)) }}</p>
         {{-- @if ($data->allday == 0)
@@ -19,14 +20,27 @@
 <div class="w-full h-0.5 bg-black mt-5"></div>
 <div class="flex flex-col mt-5">
     <h2 class="font-bold text-2xl">Order Summary</h2>
-    <div class="flex flex-row justify-between">
-        <div class="ticket-name">
-    @foreach($data->ticket as $ticket)
-        <p class="rest-ticket" style="font-size: 16px; line-height: 2.5"> {{$ticket->name}} * {{$ticket->selectedseatsCount}}</p>
-    @endforeach
+    @if(isset($singleEvent))
+        <div class="flex flex-row justify-between">
+            <div class="ticket-name">
+{{--                @dd($data)--}}
+{{--                @foreach($data->ticket as $ticket)--}}
+                    <p class="rest-ticket" style="font-size: 16px; line-height: 2.5"> {{$data->event->name}} * 1</p>
+{{--                @endforeach--}}
+            </div>
+            <p id="total_price" class="price" style="font-size: 16px; line-height: 2.5">{{ $data->currency }}{{$data->price_total}}</p>
         </div>
-        <p id="total_price" class="price" style="font-size: 16px; line-height: 2.5">{{ $data->currency }}{{$data->price_total}}</p>
-    </div>
+    @else
+        <div class="flex flex-row justify-between">
+            <div class="ticket-name">
+                @foreach($data->ticket as $ticket)
+                    <p class="rest-ticket" style="font-size: 16px; line-height: 2.5"> {{$ticket->name}} * {{$ticket->selectedseatsCount}}</p>
+                @endforeach
+            </div>
+            <p id="total_price" class="price" style="font-size: 16px; line-height: 2.5">{{ $data->currency }}{{$data->price_total}}</p>
+        </div>
+    @endif
+
 </div>
 {{-- @if (isset($data->type) && $data->type == 'paid') --}}
 

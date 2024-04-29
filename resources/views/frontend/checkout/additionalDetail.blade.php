@@ -39,7 +39,7 @@
                 </div>
                 <div class="mt-2 w-full">
                     <label for="howtoknow" class="block text-sm font-medium leading-6 text-gray-900">How did you hear about this event?<span style="color:red">*</span></label>
-                    <input id="howtoknow" name="howtoknow" type="text" autocomplete="howtoknow" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="First name">
+                    <input id="howtoknow" name="howtoknow" type="text" autocomplete="howtoknow" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Friend, Tiktok, Instagram">
                 </div>
                 <div class="w-[50%]" style="float:right;">
                     <button type="submit" class="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Next</button>

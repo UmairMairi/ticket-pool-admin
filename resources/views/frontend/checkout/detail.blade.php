@@ -2,7 +2,7 @@
 @section('title', __('Detail'))
 @section('content')
 <div class="flex flex-col justify-center container gap -10 m-auto w-[80%] mt-10 mb-10 msm:flex-row msm:mt-20 msm:w-[70%]">
-    <div class="flex min-h-full flex-col px-6 py-12 h-160  msm:w-1/2" style="box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);">
+    <div class="flex min-h-full flex-col px-6 py-12 h-200  msm:w-1/2" style="box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);">
         <div class="w-full">
             <h2 class="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">Your Details</h2>
         </div>
@@ -44,11 +44,17 @@
                 </div>
                 <div class="w-full">
                     <label for="postcode" class="block text-sm font-medium leading-6 text-gray-900">Postcode<span style="color:red">*</span></label>
-                    <input id="postcode" name="postcode" type="text" autocomplete="postcode" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your postcode" pattern="[0-9]{5}(-[0-9]{4})?" title="Enter a valid postcode (e.g., 12345 or 12345-6789)">
+                    <input id="" name="postcode" type="text" autocomplete="postcode" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your postcode"
+{{--                           pattern="[A-Z0-9]{2}\s?\d{3}|[A-Z]{2}\s?\d{3}" title="Enter a valid postcode (e.g., 12 WH or HE 123)"--}}
+                    >
                 </div>
                 <div class="w-full">
                     <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password<span style="color:red">*</span></label>
-                    <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your email address" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one digit, one lowercase and one uppercase letter, and be at least 8 characters long">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one digit, one lowercase and one uppercase letter, and be at least 8 characters long">
+                </div>
+                <div class="w-full">
+                    <label for="confirmation_password" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password<span style="color:red">*</span></label>
+                    <input id="confirmation_password" name="confirmation_password" type="password" autocomplete="current-confirmation_password" required class="block w-full rounded-md border-0 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your confirmation password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one digit, one lowercase and one uppercase letter, and be at least 8 characters long">
                 </div>
                 <div class="flex items-center mb-4 mt-2" style="margin-top: 20px">
                     <input id="policy" name="tos[]" type="checkbox" value="privacy_policy" class="w-5 h-5 appearance-none border cursor-pointer border-gray-300  rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100" required>
@@ -56,9 +62,9 @@
                 </div>
                 <div class="flex items-center">
                     <input id="event" name="tos[]" type="checkbox" value="keep_informed" class="w-5 h-5 appearance-none cursor-pointer border border-gray-300  rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100">
-                    <label for="event" class="text-sm font-normal cursor-pointer text-gray-600"> We would love to keep you informed with all things tickets especially events</label>
+                    <label for="event" class="text-sm font-normal cursor-pointer text-gray-600">I would like to be informed about related events by Ticketpool</label>
                 </div>
-                <p class="text-sm font-normal cursor-pointer text-gray-600">We think you'll love. To opt out of this please check this box.</p>
+{{--                <p class="text-sm font-normal cursor-pointer text-gray-600">We think you'll love. To opt out of this please check this box.</p>--}}
                 <button type="submit" class="flex w-[50%] justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Next</button>
             </form>
         </div>
@@ -67,5 +73,24 @@
         @include('frontend.checkout.ticketDetail')
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var passwordInput = document.getElementById('password');
+        var confirmPasswordInput = document.getElementById('confirmation_password');
 
+        function validatePassword() {
+            var password = passwordInput.value;
+            var confirmPassword = confirmPasswordInput.value;
+
+            if (password !== confirmPassword) {
+                confirmPasswordInput.setCustomValidity("Passwords do not match");
+            } else {
+                confirmPasswordInput.setCustomValidity('');
+            }
+        }
+
+        passwordInput.addEventListener("input", validatePassword);
+        confirmPasswordInput.addEventListener("input", validatePassword);
+    });
+</script>
 @endsection
